@@ -13,8 +13,8 @@ public class OrdinaryEmployee extends Employee implements Training {
 
     private OrdinaryPosition position;
 
-    public OrdinaryEmployee(String name, String dateOfBirth, String dateOfWork, int salary, OrdinaryPosition position) {
-        super(name, dateOfBirth, dateOfWork, salary);
+    public OrdinaryEmployee(int id, String name, String dateOfBirth, String dateOfWork, int salary, OrdinaryPosition position) {
+        super(id, name, dateOfBirth, dateOfWork, salary);
         this.position = position;
     }
 

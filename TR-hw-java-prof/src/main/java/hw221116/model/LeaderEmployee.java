@@ -13,8 +13,8 @@ public class LeaderEmployee extends Employee implements Charity {
     private String education;
     private LeaderPosition position;
 
-    public LeaderEmployee(String name, String dateOfBirth, String dateOfWork, int salary, LeaderPosition position) {
-        super(name, dateOfBirth, dateOfWork, salary);
+    public LeaderEmployee(int id, String name, String dateOfBirth, String dateOfWork, int salary, LeaderPosition position) {
+        super(id, name, dateOfBirth, dateOfWork, salary);
         this.position = position;
     }
 

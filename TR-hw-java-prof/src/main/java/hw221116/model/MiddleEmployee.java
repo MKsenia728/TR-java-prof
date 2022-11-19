@@ -12,8 +12,8 @@ public class MiddleEmployee extends Employee implements Training {
     private MiddlePosition position;
     private int experience;
 
-    public MiddleEmployee(String name, String dateOfBirth, String dateOfWork, int salary, MiddlePosition position, int experience) {
-        super(name, dateOfBirth, dateOfWork, salary);
+    public MiddleEmployee(int id, String name, String dateOfBirth, String dateOfWork, int salary, MiddlePosition position, int experience) {
+        super(id, name, dateOfBirth, dateOfWork, salary);
         this.position = position;
         this.experience = experience;
     }

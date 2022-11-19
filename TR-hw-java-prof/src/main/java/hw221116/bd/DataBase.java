@@ -8,8 +8,6 @@ import java.util.List;
 public class DataBase {
     public List<Employee> ArrayEmployee = new LinkedList<>();
 
-    public List<Employee> ArraySalary = new LinkedList<>();
-
     public void addEmployee(Employee employee) {
         ArrayEmployee.add(employee);
     }
@@ -26,18 +24,4 @@ public class DataBase {
         ArrayEmployee.clear();
     }
 
-    public void addSortSalary(Employee employee) {
-        if (ArraySalary.size() == 0) {
-            ArraySalary.add(0, employee);
-        } else for (int i = 0; i < ArraySalary.size(); i++) {
-            if (employee.getSalary() <= ArraySalary.get(i).getSalary()) {
-                ArraySalary.add(i, employee);
-                break;
-            }
-        }
-    }
-
-    public void clearSortSalary() {
-        ArraySalary.clear();
-    }
 }

@@ -14,6 +14,7 @@ import java.util.Calendar;
 
 public class Employee {
 
+    private int id;
     private String name;
     private String dateOfBirth;
     private String dateOfWork;
