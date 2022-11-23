@@ -18,7 +18,7 @@ public class IteratorRange {
 
         Range range = new Range(list);
 
-        for (int i : range.fromTo(2, 5)) {
+        for (int i : range.fromTo(5, 55)) {
             System.out.println(i);
         }
     }
@@ -27,6 +27,7 @@ public class IteratorRange {
 
         private final List<Integer> integerList;
         int point = -1;
+
         public Range(List<Integer> integerList) {
             this.integerList = integerList;
         }
@@ -35,11 +36,17 @@ public class IteratorRange {
 
             Iterator iterator = iterator();
             List<Integer> listInRange = new ArrayList<>();
-            Integer intInRange;
-            while (iterator.hasNext()) {
-                intInRange = iterator.next();
-                point++;
-                if (point >= startIndex && point <= endIndex) listInRange.add(intInRange);
+            if (startIndex < 0 || startIndex > endIndex) {
+                System.out.println("Incorrect range data");
+            } else if (endIndex > this.integerList.size()) {
+                System.out.println("Range data out of list");
+            } else {
+                Integer intInRange;
+                while (iterator.hasNext()) {
+                    intInRange = iterator.next();
+                    point++;
+                    if (point >= startIndex && point <= endIndex) listInRange.add(intInRange);
+                }
             }
             return listInRange;
         }
@@ -61,7 +68,7 @@ public class IteratorRange {
 
         @Override
         public boolean hasNext() {
-            return cursor < this.integerList.size()-1;
+            return cursor < this.integerList.size() - 1;
         }
 
         @Override
