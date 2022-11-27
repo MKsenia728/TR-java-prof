@@ -1,10 +1,11 @@
 package hw221116.model;
 
-import hw221116.Employee;
-import hw221116.Training;
+import hw221116.interfaces.Training;
 import hw221116.enums.OrdinaryPosition;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -13,8 +14,8 @@ public class OrdinaryEmployee extends Employee implements Training {
 
     private OrdinaryPosition position;
 
-    public OrdinaryEmployee(int id, String name, String dateOfBirth, String dateOfWork, int salary, OrdinaryPosition position) {
-        super(id, name, dateOfBirth, dateOfWork, salary);
+    public OrdinaryEmployee(int id, String name, LocalDate dateOfBirth, LocalDate startOfWork, OrdinaryPosition position) {
+        super(id, name, dateOfBirth, startOfWork);
         this.position = position;
     }
 
@@ -24,7 +25,7 @@ public class OrdinaryEmployee extends Employee implements Training {
     }
 
     @Override
-    public double insureSum() {
-        return super.insureSum() * 10;
+    public double TakeInsureSum() {
+        return super.TakeInsureSum() * 10;
     }
 }

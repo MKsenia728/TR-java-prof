@@ -18,6 +18,7 @@ public class IteratorRange {
 
         Range range = new Range(list);
 
+
         for (int i : range.fromTo(5, 55)) {
             System.out.println(i);
         }

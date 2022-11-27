@@ -1,10 +1,11 @@
 package hw221116.model;
 
-import hw221116.Employee;
-import hw221116.Training;
+import hw221116.interfaces.Training;
 import hw221116.enums.MiddlePosition;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -12,10 +13,9 @@ public class MiddleEmployee extends Employee implements Training {
     private MiddlePosition position;
     private int experience;
 
-    public MiddleEmployee(int id, String name, String dateOfBirth, String dateOfWork, int salary, MiddlePosition position, int experience) {
-        super(id, name, dateOfBirth, dateOfWork, salary);
+    public MiddleEmployee(int id, String name, LocalDate dateOfBirth, LocalDate startOfWork, MiddlePosition position) {
+        super(id, name, dateOfBirth, startOfWork);
         this.position = position;
-        this.experience = experience;
     }
 
     @Override
@@ -23,8 +23,9 @@ public class MiddleEmployee extends Employee implements Training {
         System.out.println("You learn on " + courseName + " course");
     }
 
+
     @Override
-    public double insureSum() {
-        return super.insureSum() * 5;
+    public double TakeInsureSum() {
+        return super.TakeInsureSum() * 5;
     }
 }
