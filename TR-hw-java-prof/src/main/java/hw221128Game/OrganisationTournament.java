@@ -23,6 +23,8 @@ public class OrganisationTournament {
         determineBestResults(LeagueType.CHILDREN);
         determineBestResults(LeagueType.YOUTH);
         determineBestResults(LeagueType.ADULT);
+        makeParticipantMap();
+        makeLeaderMap(80);
     }
 
     private void createTournaments() {
@@ -106,6 +108,42 @@ public class OrganisationTournament {
         System.out.println("The best player in league " + leagueType + " has " + list.get(0).getAllScore() + " ");
         printParticipant(list.get(0));
         System.out.println("_____________________________________________________________");
+    }
+
+    private void makeParticipantMap(){
+        List<Participant> list = ListParticipant.getInstance().listParticipants;
+        Map<LeagueType, List<Participant>> listMap= new HashMap<>();
+        for (LeagueType l: LeagueType.values()) {
+            listMap.put(l, new ArrayList<>());
+        }
+        for (Participant p: list) {
+            if (listMap.containsKey(p.getLeagueType())) listMap.get(p.getLeagueType()).add(p);
+        }
+        printMap(listMap, "All participants in MAP");
+
+    }
+
+    private void makeLeaderMap(int minScore) {
+        List<Participant> list = ListParticipant.getInstance().listParticipants;
+        list.sort(new ScoreAllComparator());
+        Map<Integer, List<Participant>> listMap= new HashMap<>();
+        for (Participant p: list) {
+            if (p.getAllScore() >= minScore) {
+                listMap.putIfAbsent(p.getAllScore(), new ArrayList<>());
+                listMap.get(p.getAllScore()).add(p);
+            }
+        }
+        printMap(listMap, "Participants whom score is more than " + minScore + " in MAP");
+    }
+    private <K> void printMap(Map<K, List<Participant>> map, String s) {
+        System.out.println(s);
+        int i = 0;
+        for (Map.Entry<K, List<Participant>> entry: map.entrySet()) {
+            for (Participant p: entry.getValue()) {
+                System.out.printf("%-5s", ++i);
+                printParticipant(p);
+            }
+        }
     }
 
 }
