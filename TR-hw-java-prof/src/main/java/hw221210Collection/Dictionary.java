@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Dictionary {
 
-    static Map<String, Set<String>> dictionaryList = new HashMap<>();
+    Map<String, Set<String>> dictionaryList = new HashMap<>();
 
     public Set<String> get(String k) {
         if (dictionaryList.containsKey(k)) return dictionaryList.get(k);
