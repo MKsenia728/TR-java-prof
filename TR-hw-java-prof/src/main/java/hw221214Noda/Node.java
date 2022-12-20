@@ -1,7 +1,7 @@
 package hw221214Noda;
 
-public class Node {
-    public Integer value;
+public class Node<T> {
+    public T value;
     public Node left;
     public Node right;
 
@@ -9,30 +9,36 @@ public class Node {
         return node != null && node.value != null;
     }
 
-    private static void createNode(Node node, int value) {
+    private void createNode(Node node, T value) {
         node.left = new Node();
         node.right = new Node();
         node.value = value;
     }
 
-    private static void insert(Node node, int value) {
-        if (!isNodeExist(node)) {
-            createNode(node, value);
-        } else if (value < node.value) {
-            insert(node.left, value);
-        } else insert(node.right, value);
+    private void insert(Node node, T value) {
+        if (value instanceof Comparable) {
+            if (!isNodeExist(node)) {
+                createNode(node, value);
+            } else if ((comparator(value, (T) node.value)) < 0) {
+                insert(node.left, value);
+            } else insert(node.right, value);
+        }
     }
 
-    private static Node search(Node node, int value) {
+    private int comparator(T value1, T value2) {
+        return ((Comparable) value1).compareTo(value2);
+    }
+
+    private Node search(Node node, T value) {
         if (!isNodeExist(node)) return null;
-        if (value == node.value) return node;
-        if (value < node.value) {
+        if (comparator(value, (T) node.value) == 0) return node;
+        if ((comparator(value, (T) node.value)) < 0) {
             return search(node.left, value);
         } else
             return search(node.right, value);
     }
 
-    private static Node getMin(Node node) {
+    private Node getMin(Node node) {
         if (!isNodeExist(node)) {
             return null;
         }
@@ -42,7 +48,7 @@ public class Node {
         return getMin(node.left);
     }
 
-    private static Node getMax(Node node) {
+    private Node getMax(Node node) {
         if (!isNodeExist(node)) {
             return null;
         }
@@ -52,7 +58,7 @@ public class Node {
         return getMax(node.right);
     }
 
-    private static void inOrderTraversal(Node node) {
+    private void inOrderTraversal(Node node) {
         if (!isNodeExist(node)) {
             return;
         }
@@ -61,7 +67,7 @@ public class Node {
         inOrderTraversal(node.right);
     }
 
-    private static void postOrderTraversal(Node node) {
+    private void postOrderTraversal(Node node) {
         if (!isNodeExist(node)) {
             return;
         }
@@ -70,7 +76,7 @@ public class Node {
         System.out.println("[ " + node.value + " ]");
     }
 
-    private static void directOrderTraversal(Node node) {
+    private void directOrderTraversal(Node node) {
         if (!isNodeExist(node)) {
             return;
         }
@@ -79,22 +85,22 @@ public class Node {
         inOrderTraversal(node.right);
     }
 
-    private static void moveNode(Node toNode, Node fromNode) {
+    private void moveNode(Node toNode, Node fromNode) {
         if (!isNodeExist(toNode) && !isNodeExist(fromNode)) return;
         if (isNodeExist(toNode)) {
             toNode.value = (isNodeExist(fromNode)) ? fromNode.value : null;
         }
     }
 
-    private static int getChildrenCount(Node node) {
+    private int getChildrenCount(Node node) {
         return ((node.left.value == null) ? 0 : 1) + ((node.right.value == null) ? 0 : 1);
     }
 
-    private static Node getChildOrNull(Node node) {
+    private Node getChildOrNull(Node node) {
         return (isNodeExist(node.left)) ? node.left : (isNodeExist(node.right)) ? node.right : null;
     }
 
-    private static void removeNodeWithOneOrZeroChild(Node nodeToDelete) {
+    private void removeNodeWithOneOrZeroChild(Node nodeToDelete) {
         Node childOrNull = getChildOrNull(nodeToDelete);
         moveNode(nodeToDelete, childOrNull);
         nodeToDelete.left = (childOrNull != null) ? childOrNull.left : null;
@@ -102,7 +108,7 @@ public class Node {
     }
 
     //todo
-    private static boolean remove(Node root, int value) {
+    private boolean remove(Node root, T value) {
         Node node = search(root, value);
         boolean isRemove;
         if (isNodeExist(node)) {
@@ -118,18 +124,19 @@ public class Node {
     }
 
     public static void main(String[] args) {
+
         Integer[] digit = {9, 2, 5, 13, 6, 10, 14, 7, 33, 44, 3, 4, 22, 19, 25, 18, 20};
         Node node = new Node();
-        createNode(node, 9);
+        node.createNode(node, 9);
         for (int i = 1; i < digit.length; i++) {
-            insert(node, digit[i]);
+            node.insert(node, digit[i]);
         }
-        inOrderTraversal(node);
-        postOrderTraversal(node);
-        directOrderTraversal(node);
+        node.inOrderTraversal(node);
+        node.postOrderTraversal(node);
+        node.directOrderTraversal(node);
 
-        remove(node, 10);
+        node.remove(node, 10);
         System.out.println();
-        inOrderTraversal(node);
+        node.inOrderTraversal(node);
     }
 }
